@@ -233,6 +233,20 @@
       alert("Please fill in both fields!");
     }
   }
+  supabase
+    .channel('realtime-free-cocktail')
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'free_cocktail',
+      },
+      (payload) => {
+        console.log('📥 New submission:', payload.new);
+      }
+    )
+    .subscribe();
 </script>
 
 </body>
