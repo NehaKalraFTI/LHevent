@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Win a Free Cocktail</title>
   <style>
+    /* Your full CSS from before is preserved here unchanged */
+    /* ... [unchanged styles] ... */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     html, body {
       height: 100%;
       width: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: white;
     }
-
     .container {
       width: 100vw;
       height: 100vh;
@@ -31,7 +31,6 @@
       align-items: center;
       padding: 20px;
     }
-
     .card {
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(14px);
@@ -45,8 +44,6 @@
       z-index: 1;
       position: relative;
     }
-
-    /* New drink icons container */
     .drink-icons {
       font-size: 2.5rem;
       margin-bottom: 15px;
@@ -54,24 +51,20 @@
       animation: swing 2.5s ease-in-out infinite alternate;
       user-select: none;
     }
-
     @keyframes swing {
       0% { transform: rotate(-8deg); }
       100% { transform: rotate(8deg); }
     }
-
     .card h2 {
       font-size: 1.5rem;
       margin-bottom: 12px;
       color: #fff;
     }
-
     .card p {
       font-size: 0.85rem;
       margin-bottom: 18px;
       color: #f1f1f1;
     }
-
     .card input {
       width: 100%;
       padding: 10px;
@@ -82,48 +75,40 @@
       background-color: rgba(255, 255, 255, 0.9);
       color: #333;
     }
-
     .card input::placeholder {
       color: #666;
     }
-
     .card button {
       width: 100%;
       padding: 10px;
       font-size: 0.95rem;
       border: none;
       border-radius: 8px;
-      background-color: #001f3f; /* Solid Navy Blue */
+      background-color: #001f3f;
       color: white;
       font-weight: 600;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
     .card button:hover {
       background-color: #003366;
     }
-
     .evil-icons {
       font-size: 1.5rem;
       margin: 10px 0;
       animation: pulse 1.5s infinite;
     }
-
     .message {
       font-size: 0.95rem;
       font-weight: bold;
       color: #ffdddd;
       margin-top: 12px;
     }
-
     @keyframes pulse {
       0% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.2); opacity: 0.7; }
       100% { transform: scale(1); opacity: 1; }
     }
-
-    /* Prank card different style */
     #prankCard {
       background: #330000cc;
       backdrop-filter: blur(6px);
@@ -132,49 +117,39 @@
       color: #fff;
       text-shadow: 1px 1px 2px #000;
     }
-
     #prankCard h2 {
       font-size: 1.6rem;
       color: #ff4444;
       margin-bottom: 10px;
     }
-
     #prankCard .message {
       color: #ffaaaa;
       font-size: 1rem;
     }
-
     #prankCard .evil-icons {
       animation: shake 0.4s ease-in-out infinite alternate;
       font-size: 1.8rem;
     }
-
     @keyframes shake {
       0% { transform: rotate(-5deg); }
       100% { transform: rotate(5deg); }
     }
-
     @media (max-width: 500px) {
       .card {
         padding: 20px 15px;
       }
-
       .card h2 {
         font-size: 1.3rem;
       }
-
       .card p {
         font-size: 0.8rem;
       }
-
       .card input, .card button {
         font-size: 0.9rem;
       }
-
       .evil-icons {
         font-size: 1.3rem;
       }
-      
       .drink-icons {
         font-size: 2rem;
         letter-spacing: 6px;
@@ -189,9 +164,9 @@
     <div class="drink-icons" aria-label="Drink icons" role="img">🍸🍹</div>
     <h2>Win a Free Cocktail</h2>
     <p>Enter your name and conference room number to receive your special code to give at the bar.</p>
-    <input type="text" id="name" placeholder="Your Name" />
-    <input type="text" id="room" placeholder="Conference Room Number" />
-    <button onclick="revealPrank()">Get My Code</button>
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="text" id="room" placeholder="Conference Room Number" required />
+    <button id="submitBtn">Get My Code</button>
   </div>
 
   <div class="card" id="prankCard" style="display: none;">
@@ -202,52 +177,48 @@
   </div>
 </div>
 
-
-
+<!-- Supabase integration + realtime -->
 <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-  // Your Supabase credentials here
-  const supabaseUrl = 'https://qfetfbkfqbkmdpiuedyf.supabase.co';
-  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmZXRmYmtmcWJrbWRwaXVlZHlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0MDcwNjAsImV4cCI6MjA2NTk4MzA2MH0.6LY8j_iUXlH-bWe7VxkwPGjzDuxoaV9p73Dn_1o_l08';
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  const supabaseUrl = 'https://ftibucbqopbmdmvikvsa.supabase.co'
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0aWJ1Y2Jxb3BibWRtdmlrdnNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0MTI0MjAsImV4cCI6MjA2NTk4ODQyMH0.7m3lpQdZRP6v2Dyc0T95YyxqB1ZpNku8bh_MATxTyHg'
+  const supabase = createClient(supabaseUrl, supabaseKey)
 
-  async function revealPrank() {
-    const name = document.getElementById("name").value.trim();
-    const room = document.getElementById("room").value.trim();
+  // Submit form
+  document.getElementById("submitBtn").addEventListener("click", async () => {
+    const name = document.getElementById("name").value.trim()
+    const room = document.getElementById("room").value.trim()
 
-    if (name && room) {
-      // Show prank card immediately
-      document.getElementById("formCard").style.display = "none";
-      document.getElementById("prankCard").style.display = "block";
-
-      // Save user input asynchronously to Supabase
-      const { error } = await supabase
-        .from('free cocktail')
-        .insert([{ name: name, room_number: room }]);
-
-      if (error) {
-        console.error('Supabase error:', error);
-        // Optional: alert user or ignore silently
-      }
-    } else {
-      alert("Please fill in both fields!");
+    if (!name || !room) {
+      alert("Please enter both name and room number.")
+      return
     }
-  }
+
+    const { error } = await supabase
+      .from('free_cocktail')
+      .insert([{ name, room }])
+
+    if (error) {
+      console.error('Supabase insert error:', error)
+      alert('Error saving your info. Try again!')
+    } else {
+      document.getElementById("formCard").style.display = "none"
+      document.getElementById("prankCard").style.display = "block"
+    }
+  })
+
+  // Real-time listener for admin/debug
   supabase
-    .channel('realtime-free-cocktail')
+    .channel('realtime:free_cocktail')
     .on(
       'postgres_changes',
-      {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'free_cocktail',
-      },
-      (payload) => {
-        console.log('📥 New submission:', payload.new);
+      { event: '*', schema: 'public', table: 'free_cocktail' },
+      payload => {
+        console.log('📡 Real-time update:', payload.new)
       }
     )
-    .subscribe();
+    .subscribe()
 </script>
 
 </body>
