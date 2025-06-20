@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Win a Free Cocktail</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: white;
+    }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      background-image: url('cocktail.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      border-radius: 16px;
+      padding: 25px 20px;
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      position: relative;
+    }
+
+    /* New drink icons container */
+    .drink-icons {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      letter-spacing: 10px;
+      animation: swing 2.5s ease-in-out infinite alternate;
+      user-select: none;
+    }
+
+    @keyframes swing {
+      0% { transform: rotate(-8deg); }
+      100% { transform: rotate(8deg); }
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+      color: #f1f1f1;
+    }
+
+    .card input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
+    .card input::placeholder {
+      color: #666;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #001f3f; /* Solid Navy Blue */
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .card button:hover {
+      background-color: #003366;
+    }
+
+    .evil-icons {
+      font-size: 1.5rem;
+      margin: 10px 0;
+      animation: pulse 1.5s infinite;
+    }
+
+    .message {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #ffdddd;
+      margin-top: 12px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Prank card different style */
+    #prankCard {
+      background: #330000cc;
+      backdrop-filter: blur(6px);
+      border: 2px solid #ff4444;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+      color: #fff;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    #prankCard h2 {
+      font-size: 1.6rem;
+      color: #ff4444;
+      margin-bottom: 10px;
+    }
+
+    #prankCard .message {
+      color: #ffaaaa;
+      font-size: 1rem;
+    }
+
+    #prankCard .evil-icons {
+      animation: shake 0.4s ease-in-out infinite alternate;
+      font-size: 1.8rem;
+    }
+
+    @keyframes shake {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 20px 15px;
+      }
+
+      .card h2 {
+        font-size: 1.3rem;
+      }
+
+      .card p {
+        font-size: 0.8rem;
+      }
+
+      .card input, .card button {
+        font-size: 0.9rem;
+      }
+
+      .evil-icons {
+        font-size: 1.3rem;
+      }
+      
+      .drink-icons {
+        font-size: 2rem;
+        letter-spacing: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card" id="formCard">
+    <div class="drink-icons" aria-label="Drink icons" role="img">🍸🍹</div>
+    <h2>Win a Free Cocktail</h2>
+    <p>Enter your name and conference room number to receive your special code to give at the bar.</p>
+    <input type="text" id="name" placeholder="Your Name" />
+    <input type="text" id="room" placeholder="Conference Room Number" />
+    <button onclick="revealPrank()">Get My Code</button>
+  </div>
+
+  <div class="card" id="prankCard" style="display: none;">
+    <div class="evil-icons">😈💀</div>
+    <h2>You've Been Tricked!</h2>
+    <p class="message">There is no cocktail — just a lesson: don’t scan random QR codes!</p>
+    <div class="evil-icons">💀😈</div>
+  </div>
+</div>
+
+<script>
+  function revealPrank() {
+    const name = document.getElementById("name").value.trim();
+    const room = document.getElementById("room").value.trim();
+
+    if (name && room) {
+      document.getElementById("formCard").style.display = "none";
+      document.getElementById("prankCard").style.display = "block";
+    } else {
+      alert("Please fill in both fields!");
+    }
+  }
+</script>
+
+</body>
+</html>
