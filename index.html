@@ -222,7 +222,7 @@
 
       // Save user input asynchronously to Supabase
       const { error } = await supabase
-        .from('checkins')
+        .from('free cocktail')
         .insert([{ name: name, room_number: room }]);
 
       if (error) {
