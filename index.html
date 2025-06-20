@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Win a Free Cocktail</title>
   <style>
-    /* Your full CSS from before is preserved here unchanged */
-    /* ... [unchanged styles] ... */
     * {
       margin: 0;
       padding: 0;
@@ -22,14 +20,14 @@
       width: 100vw;
       height: 100vh;
       background-image: url('cocktail.png');
-      background-size: contain;
+      background-size: cover; /* changed from contain */
       background-repeat: no-repeat;
       background-position: center center;
       background-color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 5vw; /* flexible padding */
     }
     .card {
       background: rgba(255, 255, 255, 0.15);
@@ -43,6 +41,8 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       z-index: 1;
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
     }
     .drink-icons {
       font-size: 2.5rem;
@@ -67,11 +67,11 @@
     }
     .card input {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 12px;
       border: none;
       border-radius: 8px;
-      font-size: 0.95rem;
+      font-size: 1rem; /* increased for mobile */
       background-color: rgba(255, 255, 255, 0.9);
       color: #333;
     }
@@ -80,8 +80,8 @@
     }
     .card button {
       width: 100%;
-      padding: 10px;
-      font-size: 0.95rem;
+      padding: 14px; /* bigger tap target */
+      font-size: 1rem; /* increased for mobile */
       border: none;
       border-radius: 8px;
       background-color: #001f3f;
@@ -134,25 +134,58 @@
       0% { transform: rotate(-5deg); }
       100% { transform: rotate(5deg); }
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 5vw;
+        background-size: cover;
+      }
+
+      .card {
+        padding: 18px 14px;
+        max-width: 90vw;
+      }
+
+      .card h2 {
+        font-size: 1.2rem;
+      }
+
+      .card p,
+      .card input,
+      .card button,
+      .message {
+        font-size: 0.85rem;
+      }
+
+      .drink-icons {
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+      }
+
+      .evil-icons {
+        font-size: 1.2rem;
+      }
+    }
+
     @media (max-width: 500px) {
       .card {
-        padding: 20px 15px;
+        padding: 16px 12px;
       }
       .card h2 {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
       }
-      .card p {
+      .card p,
+      .card input,
+      .card button {
         font-size: 0.8rem;
       }
-      .card input, .card button {
-        font-size: 0.9rem;
-      }
       .evil-icons {
-        font-size: 1.3rem;
+        font-size: 1rem;
       }
       .drink-icons {
-        font-size: 2rem;
-        letter-spacing: 6px;
+        font-size: 1.6rem;
+        letter-spacing: 3px;
       }
     }
   </style>
@@ -162,7 +195,7 @@
 <div class="container">
   <div class="card" id="formCard">
     <div class="drink-icons" aria-label="Drink icons" role="img">🍸🍹</div>
-    <h3>Claim your Complimentary Cocktail</h3>
+    <h2>Win your Complimentary Cocktail</h2>
     <p>Enter your name and conference room number to receive your special code to give at the bar.</p>
     <input type="text" id="name" placeholder="Your Name" required />
     <input type="text" id="room" placeholder="Conference Room Number" required />
