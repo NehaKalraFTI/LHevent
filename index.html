@@ -202,14 +202,33 @@
   </div>
 </div>
 
+<!-- Supabase library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 <script>
-  function revealPrank() {
+  // Your Supabase credentials here
+  const SUPABASE_URL = 'https://qfetfbkfqbkmdpiuedyf.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmZXRmYmtmcWJrbWRwaXVlZHlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0MDcwNjAsImV4cCI6MjA2NTk4MzA2MH0.6LY8j_iUXlH-bWe7VxkwPGjzDuxoaV9p73Dn_1o_l08';
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  async function revealPrank() {
     const name = document.getElementById("name").value.trim();
     const room = document.getElementById("room").value.trim();
 
     if (name && room) {
+      // Show prank card immediately
       document.getElementById("formCard").style.display = "none";
       document.getElementById("prankCard").style.display = "block";
+
+      // Save user input asynchronously to Supabase
+      const { error } = await supabase
+        .from('checkins')
+        .insert([{ name: name, room_number: room }]);
+
+      if (error) {
+        console.error('Supabase error:', error);
+        // Optional: alert user or ignore silently
+      }
     } else {
       alert("Please fill in both fields!");
     }
